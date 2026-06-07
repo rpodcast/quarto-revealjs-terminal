@@ -1,0 +1,10 @@
+# nix files
+result
+
+# quarto render artifacts
+/.quarto/
+*_files/
+template.html
+
+# misc
+/.opencode/
