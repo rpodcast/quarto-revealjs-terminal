@@ -1,0 +1,380 @@
+/*-- scss:defaults --*/
+
+// ============================================================================
+//  TERMINAL THEME — customizable variables
+//  ---------------------------------------------------------------------------
+//  Every variable below uses `!default`, so you can override ANY color or font
+//  from your own SCSS file without editing this theme. In your document:
+//
+//      format:
+//        terminal-revealjs:
+//          theme:
+//            - custom.scss     # <-- your overrides (define vars WITHOUT !default)
+//
+//  ...and `custom.scss` only needs the variables you want to change, e.g.:
+//
+//      /*-- scss:defaults --*/
+//      $terminal-accent: #00e0ff;   // cyan instead of amber
+//      $terminal-bg:     #001014;
+// ============================================================================
+
+// ---- Color palette ---------------------------------------------------------
+$terminal-bg:            #0a0a0a !default;  // slide background
+$terminal-fg:            #c8c8c8 !default;  // default body text
+$terminal-muted:         #6f6f6f !default;  // de-emphasized / secondary text
+$terminal-accent:        #f5a623 !default;  // primary amber (headings, prompts)
+$terminal-accent-bright: #ffb733 !default;  // brighter amber for big headings
+$terminal-accent-soft:   #e8911f !default;  // slightly darker amber
+$terminal-green:         #4ade80 !default;  // prompt ">" and status dot
+$terminal-pink:          #f87171 !default;  // strong/negative emphasis
+$terminal-border:        #3a3216 !default;  // box / card borders
+$terminal-box-bg:        rgba(245, 166, 35, 0.05) !default; // callout fill
+
+// Map common reveal.js roles onto the palette (still overridable)
+$terminal-link:          $terminal-accent !default;
+$terminal-strong:        $terminal-accent-bright !default;  // **bold** color
+$terminal-em:            $terminal-accent !default;         // *italic* color
+$terminal-code-bg:       #111111 !default;
+$terminal-code-fg:       $terminal-fg !default;
+
+// ---- Fonts -----------------------------------------------------------------
+// Body/code font and heading (pixel/display) font. Swap freely.
+// For a chunkier pixel look set: $terminal-heading-font: "Press Start 2P", monospace;
+$terminal-body-font:     "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace !default;
+$terminal-heading-font:  "VT323", "JetBrains Mono", monospace !default;
+$terminal-code-font:     $terminal-body-font !default;
+
+// ---- Sizing ----------------------------------------------------------------
+$terminal-root-font-size:  26px !default;
+$terminal-h1-size:         3.4em !default;
+$terminal-h2-size:         2.6em !default;
+$terminal-h3-size:         1.5em !default;
+$terminal-heading-spacing: 0.02em !default;
+
+// ---- Slide insets (reserve space for the status bar / footer chrome) -------
+// Increase these if your status bar or footer text wraps onto two lines.
+$terminal-content-top:    90px !default;   // gap below the top status bar
+$terminal-content-bottom: 70px !default;   // gap above the bottom footer
+
+// ---- Effects ---------------------------------------------------------------
+$terminal-glow:        true !default;   // amber glow on headings
+$terminal-scanlines:   true !default;   // subtle CRT scanline overlay
+$terminal-glow-color:  rgba(245, 166, 35, 0.45) !default;
+
+// ---- Wire palette into reveal.js / Quarto SCSS variables -------------------
+$body-bg:                       $terminal-bg !default;
+$body-color:                    $terminal-fg !default;
+$link-color:                    $terminal-link !default;
+$selection-bg:                  rgba(245, 166, 35, 0.35) !default;
+
+$font-family-sans-serif:        $terminal-body-font !default;
+$font-family-monospace:         $terminal-code-font !default;
+$presentation-font-size-root:   $terminal-root-font-size !default;
+$presentation-heading-font:     $terminal-heading-font !default;
+$presentation-heading-color:    $terminal-accent !default;
+$presentation-h1-font-size:     $terminal-h1-size !default;
+$presentation-h2-font-size:     $terminal-h2-size !default;
+$presentation-h3-font-size:     $terminal-h3-size !default;
+$code-block-bg:                 $terminal-code-bg !default;
+$code-color:                    $terminal-accent !default;
+
+
+/*-- scss:rules --*/
+
+.reveal {
+  font-family: $terminal-body-font;
+  letter-spacing: 0.01em;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+// Reserve vertical space so slide content never collides with the
+// absolutely-positioned status bar (top) or footer (bottom).
+.reveal .slides > section,
+.reveal .slides > section > section {
+  padding-top: $terminal-content-top;
+  padding-bottom: $terminal-content-bottom;
+  box-sizing: border-box;
+}
+
+// ---- Headings: uppercase, amber, optional glow -----------------------------
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  font-family: $terminal-heading-font;
+  text-transform: uppercase;
+  letter-spacing: $terminal-heading-spacing;
+  line-height: 1.02;
+  margin-bottom: 0.4em;
+  color: $terminal-accent-bright;
+  @if $terminal-glow {
+    text-shadow:
+      0 0 2px $terminal-glow-color,
+      0 0 12px $terminal-glow-color,
+      0 0 28px rgba(245, 166, 35, 0.25);
+  }
+}
+
+.reveal h4,
+.reveal h5 {
+  font-family: $terminal-heading-font;
+  text-transform: uppercase;
+  color: $terminal-accent;
+}
+
+// Kicker line: write `[// HERMES AGENT MASTERCLASS]{.kicker}`
+.reveal .kicker {
+  display: block;
+  font-family: $terminal-body-font;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: $terminal-muted;
+  font-size: 0.7em;
+  margin-bottom: 0.5em;
+}
+
+// Subtitle / lede under a heading: `[text]{.lede}` or `.subtitle`
+.reveal .lede,
+.reveal .subtitle {
+  color: $terminal-muted;
+  font-size: 1.05em;
+  margin-bottom: 0.8em;
+}
+
+// Muted description / supporting line: `[text]{.desc}`
+.reveal .desc {
+  display: block;
+  color: $terminal-muted;
+  font-size: 0.95em;
+}
+
+// ---- Section-break slide ---------------------------------------------------
+// Add `.section-break` to a slide header to vertically center its content
+// and emphasise the title — use these as chapter / section dividers:
+//
+//   ## SKILLS. {.section-break terminal-path="..." terminal-status="..."}
+//
+.reveal section.section-break {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+.reveal section.section-break > * {
+  margin-left: 0;
+  margin-right: 0;
+}
+.reveal section.section-break h1,
+.reveal section.section-break h2 {
+  font-size: $terminal-h1-size * 1.15;
+  margin-bottom: 0.3em;
+}
+.reveal section.section-break .lede {
+  color: $terminal-accent;     // amber lede on section breaks
+  font-size: 1.25em;
+  margin-bottom: 0.6em;
+}
+.reveal section.section-break .kicker {
+  font-size: 0.75em;
+  margin-bottom: 0.6em;
+}
+
+// ---- Inline emphasis -------------------------------------------------------
+.reveal strong { color: $terminal-strong; font-weight: 700; }
+.reveal em     { color: $terminal-em; font-style: italic; }
+.reveal a      { color: $terminal-link; text-decoration: none; border-bottom: 1px dotted currentColor; }
+.reveal code:not(.sourceCode) {
+  color: $terminal-accent;
+  background: $terminal-code-bg;
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+// Negative / strong emphasis helper: `[stateless]{.neg}`
+.reveal .neg { color: $terminal-pink; font-weight: 700; }
+.reveal .ok  { color: $terminal-green; font-weight: 700; }
+
+// ---- Bullet lists as left-bar callout boxes --------------------------------
+// Use a normal markdown list inside `::: callouts` to get the boxed look,
+// or rely on the default lists which also get a subtle bar.
+.reveal .callouts ul,
+.reveal ul.boxed {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+.reveal .callouts ul > li,
+.reveal ul.boxed > li {
+  position: relative;
+  background: $terminal-box-bg;
+  border-left: 4px solid $terminal-accent;
+  padding: 0.55em 0.8em 0.55em 2.2em;
+  margin-bottom: 0.7em;
+  border-radius: 2px;
+}
+.reveal .callouts ul > li::before,
+.reveal ul.boxed > li::before {
+  content: "›";
+  position: absolute;
+  left: 0.8em;
+  color: $terminal-accent;
+  font-weight: 700;
+}
+
+// ---- Numbered-list boxes (01, 02, 03 ...) ----------------------------------
+// Wrap an ordered list in `::: steps`.
+.reveal .steps ol {
+  list-style: none;
+  counter-reset: term-step;
+  margin-left: 0;
+  padding-left: 0;
+}
+.reveal .steps ol > li {
+  counter-increment: term-step;
+  border: 1px solid $terminal-border;
+  background: rgba(245, 166, 35, 0.03);
+  padding: 0.55em 0.9em 0.55em 3.2em;
+  margin-bottom: 0.6em;
+  border-radius: 3px;
+  position: relative;
+}
+.reveal .steps ol > li::before {
+  content: counter(term-step, decimal-leading-zero);
+  position: absolute;
+  left: 0.9em;
+  color: $terminal-accent;
+  font-weight: 700;
+}
+
+// ---- Two-column bordered cards ---------------------------------------------
+// `::: cards` containing several `::: card` divs (or use .columns).
+// IMPORTANT: do NOT put markdown headings (##, ###) inside a card — Quarto
+// turns them into nested reveal.js <section>s, which breaks slide navigation.
+// Use `[Title]{.card-title}` for the card heading instead.
+.reveal .cards {
+  display: flex;
+  gap: 1.2em;
+  margin-top: 0.6em;
+}
+.reveal .card {
+  flex: 1;
+  border: 1px solid $terminal-border;
+  border-radius: 4px;
+  padding: 1em 1.1em;
+  background: rgba(245, 166, 35, 0.03);
+}
+.reveal .card .card-title,
+.reveal .card > :first-child {
+  display: block;
+  color: $terminal-accent;
+  text-transform: uppercase;
+  font-family: $terminal-heading-font;
+  font-size: 1.3em;
+  margin-top: 0;
+  margin-bottom: 0.4em;
+}
+
+// ---- Code / tree display block ---------------------------------------------
+.reveal pre,
+.reveal div.sourceCode {
+  background: $terminal-code-bg;
+  border: 1px solid $terminal-border;
+  border-radius: 4px;
+}
+.reveal pre code {
+  color: $terminal-code-fg;
+  font-family: $terminal-code-font;
+  padding: 0.8em 1em;
+  line-height: 1.5;
+}
+
+// ---- Blockquote: terminal note --------------------------------------------
+.reveal blockquote {
+  border-left: 3px solid $terminal-accent;
+  background: $terminal-box-bg;
+  color: $terminal-fg;
+  padding: 0.5em 1em;
+  font-style: normal;
+}
+
+// ============================================================================
+//  Chrome injected by terminal.lua: top status bar + bottom footer
+// ============================================================================
+.reveal .terminal-statusbar {
+  position: absolute;
+  top: 3.5%;
+  left: 4%;
+  right: 4%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: $terminal-body-font;
+  font-size: 0.62em;
+  letter-spacing: 0.05em;
+  color: $terminal-muted;
+  border-bottom: 1px solid rgba(245, 166, 35, 0.15);
+  padding-bottom: 0.4em;
+  z-index: 5;
+}
+.reveal .terminal-statusbar .ts-path { color: $terminal-accent; }
+.reveal .terminal-statusbar .ts-path .ts-prompt { color: $terminal-green; margin-right: 0.4em; }
+.reveal .terminal-statusbar .ts-status { color: $terminal-muted; text-transform: uppercase; }
+.reveal .terminal-statusbar .ts-status .ts-dot {
+  color: $terminal-green;
+  margin-right: 0.5em;
+}
+
+.reveal .terminal-footer {
+  position: absolute;
+  bottom: 3.5%;
+  left: 4%;
+  right: 4%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: $terminal-body-font;
+  font-size: 0.55em;
+  color: $terminal-muted;
+  border-top: 1px solid rgba(245, 166, 35, 0.12);
+  padding-top: 0.5em;
+  z-index: 5;
+}
+.reveal .terminal-footer .tf-count { letter-spacing: 0.1em; }
+.reveal .terminal-footer .tf-hint   { letter-spacing: 0.05em; }
+.reveal .terminal-footer .tf-dots {
+  display: flex;
+  gap: 0.45em;
+  align-items: center;
+}
+.reveal .terminal-footer .tf-dots .tf-dot {
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: 50%;
+  background: $terminal-muted;
+  opacity: 0.4;
+}
+.reveal .terminal-footer .tf-dots .tf-dot.active {
+  background: $terminal-accent;
+  opacity: 1;
+  box-shadow: 0 0 6px $terminal-glow-color;
+}
+
+// ---- CRT scanline overlay --------------------------------------------------
+@if $terminal-scanlines {
+  .reveal::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0px,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 0, 0, 0.18) 3px,
+      rgba(0, 0, 0, 0.18) 3px
+    );
+    opacity: 0.5;
+  }
+}

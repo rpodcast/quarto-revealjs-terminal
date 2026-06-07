@@ -1,0 +1,36 @@
+/*-- scss:defaults --*/
+
+// ============================================================================
+//  EXAMPLE CUSTOM OVERRIDES
+//  ---------------------------------------------------------------------------
+//  Copy/uncomment any of the variables below to change the theme's colors or
+//  fonts. You do NOT need !default here — these override the theme defaults.
+//
+//  Enable in your document YAML by listing this file AFTER the theme:
+//
+//      format:
+//        terminal-revealjs:
+//          theme:
+//            - custom.scss
+//
+//  (The extension already loads terminal.scss; your file is layered on top.)
+// ============================================================================
+
+// ---- Recolor the whole theme (example: cyan-on-navy) -----------------------
+// $terminal-bg:            #001014;
+// $terminal-accent:        #00e0ff;
+// $terminal-accent-bright: #5cf0ff;
+// $terminal-green:         #00ff9c;
+// $terminal-glow-color:    rgba(0, 224, 255, 0.45);
+
+// ---- Change fonts ----------------------------------------------------------
+// Chunkier pixel headings (already loaded by the extension):
+// $terminal-heading-font:  "Press Start 2P", monospace;
+// $terminal-h1-size:       2.4em;   // Press Start 2P runs large; scale down
+
+// Different body font (load it yourself via header-includes if not standard):
+// $terminal-body-font:     "IBM Plex Mono", monospace;
+
+// ---- Toggle effects --------------------------------------------------------
+// $terminal-glow:      false;   // disable heading glow
+// $terminal-scanlines: false;   // disable CRT scanline overlay

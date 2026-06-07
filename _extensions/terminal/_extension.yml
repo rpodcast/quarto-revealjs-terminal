@@ -1,0 +1,37 @@
+title: Terminal
+author: quarto_terminal_theme
+version: 0.1.0
+quarto-required: ">=1.4.0"
+contributes:
+  formats:
+    revealjs:
+      theme: [default, terminal.scss]
+      filters:
+        - terminal.lua
+      # Reveal.js behaviour tuned for the terminal aesthetic
+      transition: fade
+      transition-speed: fast
+      background-transition: fade
+      slide-number: false        # we render our own counter in the footer
+      progress: false            # we render our own progress dots
+      controls: false
+      center: false
+      width: 1280
+      height: 720
+      margin: 0.04
+      highlight-style: none      # code colouring handled by the theme
+      # ---- Terminal theme options (read by terminal.lua) -------------------
+      # These are first-class defaults of the format. Override any of them in
+      # your document's `format: terminal-revealjs:` block, or per-slide via
+      # header attributes (e.g. `## Title {terminal-path="..."}`).
+      terminal-path: ""                       # default prompt path (top-left)
+      terminal-hint: "press → to continue"    # footer hint (bottom-right)
+      terminal-statusbar: true                # show the top status bar
+      terminal-footer: true                   # show the bottom footer
+      terminal-dots: true                     # show progress dots in footer
+      # Pixel display font + monospace body, loaded from Google Fonts.
+      # Override `terminal-*-font` SCSS variables to change these.
+      header-includes: |
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">

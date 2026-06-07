@@ -1,0 +1,92 @@
+---
+title: "TERMINAL THEME"
+subtitle: "A retro-terminal Quarto reveal.js theme"
+format:
+  terminal-revealjs:
+    # terminal-hint defaults to "press → to continue" (set by the format);
+    # override any terminal-* option here. Below we just set a default path.
+    terminal-path: "demo/terminal-theme"
+---
+
+## SKILLS. {.section-break terminal-path="masterclass/module-04" terminal-status="LESSON 4 / 11"}
+
+[// HERMES AGENT MASTERCLASS]{.kicker}
+
+[Procedural memory you can author.]{.lede}
+
+[80+ skills ship in the box. By the end of this module, you'll have written one.]{.desc}
+
+## AN AI AGENT THAT LEARNS YOU. {terminal-path="part-01/overview" terminal-status="1.1"}
+
+[Open source. Built by Nous Research. MIT licensed.]{.lede}
+
+::: callouts
+
+- Runs in your terminal (CLI) or on your phone (gateway)
+- Works with any model — Claude, GPT, Grok, Kimi, local, whatever
+- Nous uses this same tool to generate training data for the **Hermes model family**
+
+:::
+
+## THE BET: COMPOUNDING VALUE. {terminal-path="part-02/the-bet" terminal-status="2.1"}
+
+Most agents are [stateless]{.neg} — every session starts from zero.
+Hermes is **stateful by design**. Every session makes the next one better.
+
+::: steps
+
+1. You give it a task
+2. It captures a **trajectory** — tools used, decisions made
+3. It extracts a reusable **skill**
+4. Next time: faster, cleaner, smarter
+
+:::
+
+## TWO FILES. {terminal-path="~/.hermes/memories/" terminal-status="CONFIG: memory:"}
+
+::: cards
+
+::: card
+[MEMORY.MD]{.card-title}
+Agent's notes about projects, environment, decisions, lessons learned.
+
+cap **2,200 chars** · ~800 tokens
+key: `memory_char_limit`
+:::
+
+::: card
+[USER.MD]{.card-title}
+Agent's model of who you are: role, preferences, communication style.
+
+cap **1,375 chars** · ~500 tokens
+key: `user_char_limit`
+:::
+
+:::
+
+Plain text. **Editable. Auditable. Portable.**
+
+## PART 03. {.section-break terminal-path="part-03" terminal-status="SECTION 3 / 5"}
+
+[// FILE SYSTEM]{.kicker}
+
+[Where everything lives.]{.lede}
+
+[A section-break slide: vertically centered, oversized title. Use these as dividers between major parts of your talk.]{.desc}
+
+## WHERE STUFF LIVES. {terminal-path="part-03/file-layout" terminal-status="3.3"}
+
+[Everything Hermes stores is in ~/.hermes/]{.lede}
+
+```text
+~/.hermes/
+├── config.yaml      # your settings — editable
+├── .env             # your secrets — editable
+├── memories/        # MEMORY.md + USER.md (Mod 5)
+├── sessions/        # every past conversation
+├── skills/          # installed skills (Mod 4)
+├── logs/            # agent.log + errors.log
+└── cron/            # scheduled jobs (Mod 8)
+```
+
+→ You can `cat` or edit the top 3. Don't touch `sessions/` or `cron/` by hand.

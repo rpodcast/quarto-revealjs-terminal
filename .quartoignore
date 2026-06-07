@@ -1,0 +1,7 @@
+default.nix
+result
+snowflake.log
+example_screenshots/
+,opencode
+build_config.R
+.Rprofile
