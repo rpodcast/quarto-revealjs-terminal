@@ -16,7 +16,27 @@
 //  (The extension already loads terminal.scss; your file is layered on top.)
 // ============================================================================
 
-// ---- Recolor the whole theme (example: cyan-on-navy) -----------------------
+// ---- Pick a ready-made color scheme (like a modern terminal) ---------------
+// The easiest way to recolor everything is to select a built-in palette:
+// $terminal-palette: "nord";
+//
+// Available palettes:
+//   amber (default)            solarized-dark             solarized-light
+//   tomorrow-night-eighties    dracula                    gruvbox-dark
+//   gruvbox-light              nord                       monokai
+//   one-dark                   catppuccin-mocha           green-phosphor
+//   cyan-navy
+//
+// Light palettes (solarized-light, gruvbox-light) automatically soften the
+// CRT glow + scanlines so they look right on a light background.
+
+// ---- Start from a palette, then tweak individual colors --------------------
+// You can layer per-variable overrides on top of any palette:
+// $terminal-palette: "dracula";
+// $terminal-accent:  #00e0ff;   // ...but make the accent cyan
+
+// ---- Recolor the whole theme by hand (example: cyan-on-navy) ---------------
+// (equivalent to $terminal-palette: "cyan-navy")
 // $terminal-bg:            #001014;
 // $terminal-accent:        #00e0ff;
 // $terminal-accent-bright: #5cf0ff;

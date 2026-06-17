@@ -1,40 +1,195 @@
+/*-- scss:functions --*/
+
+// ============================================================================
+//  TERMINAL THEME — color-scheme (palette) registry
+//  ---------------------------------------------------------------------------
+//  This region defines the named palettes that power `$terminal-palette`.
+//  It lives in `scss:functions` (not `defaults`) on purpose: Quarto always
+//  layers the theme's `functions` BEFORE any user theme file, so this map is
+//  guaranteed to exist by the time the `defaults` below run — even when the
+//  user only sets `$terminal-palette: "solarized-dark";` in their own file.
+//
+//  Each palette is a map with these keys:
+//    mode           : "dark" | "light"  (controls auto-toned CRT effects)
+//    bg             : slide background
+//    fg             : default body text
+//    muted          : de-emphasized / secondary text
+//    accent         : primary accent (headings, prompts, links)
+//    accent-bright  : brighter accent for big headings
+//    accent-soft    : slightly darker accent
+//    green          : prompt ">" / status dot / .ok
+//    pink           : strong / negative emphasis / .neg
+//    border         : box & card borders
+// ============================================================================
+
+$terminal-palettes: (
+  // -- Default: retro amber phosphor --------------------------------------
+  "amber": (
+    mode: dark,
+    bg: #0a0a0a, fg: #c8c8c8, muted: #6f6f6f,
+    accent: #f5a623, accent-bright: #ffb733, accent-soft: #e8911f,
+    green: #4ade80, pink: #f87171, border: #3a3216,
+  ),
+
+  // -- Solarized (Ethan Schoonover) ---------------------------------------
+  "solarized-dark": (
+    mode: dark,
+    bg: #002b36, fg: #93a1a1, muted: #586e75,
+    accent: #b58900, accent-bright: #cb9b1a, accent-soft: #93710a,
+    green: #859900, pink: #dc322f, border: #073642,
+  ),
+  "solarized-light": (
+    mode: light,
+    bg: #fdf6e3, fg: #586e75, muted: #93a1a1,
+    accent: #b58900, accent-bright: #cb4b16, accent-soft: #93710a,
+    green: #859900, pink: #dc322f, border: #eee8d5,
+  ),
+
+  // -- Tomorrow Night Eighties (Chris Kempson) ----------------------------
+  "tomorrow-night-eighties": (
+    mode: dark,
+    bg: #2d2d2d, fg: #cccccc, muted: #999999,
+    accent: #f2777a, accent-bright: #ffc66d, accent-soft: #d27b53,
+    green: #99cc99, pink: #f2777a, border: #515151,
+  ),
+
+  // -- Dracula ------------------------------------------------------------
+  "dracula": (
+    mode: dark,
+    bg: #282a36, fg: #f8f8f2, muted: #6272a4,
+    accent: #bd93f9, accent-bright: #ff79c6, accent-soft: #9b6fe0,
+    green: #50fa7b, pink: #ff5555, border: #44475a,
+  ),
+
+  // -- Gruvbox (morhetz) --------------------------------------------------
+  "gruvbox-dark": (
+    mode: dark,
+    bg: #282828, fg: #ebdbb2, muted: #928374,
+    accent: #fabd2f, accent-bright: #fe8019, accent-soft: #d79921,
+    green: #b8bb26, pink: #fb4934, border: #504945,
+  ),
+  "gruvbox-light": (
+    mode: light,
+    bg: #fbf1c7, fg: #3c3836, muted: #7c6f64,
+    accent: #b57614, accent-bright: #af3a03, accent-soft: #d79921,
+    green: #79740e, pink: #9d0006, border: #ebdbb2,
+  ),
+
+  // -- Nord (Arctic Ice Studio) -------------------------------------------
+  "nord": (
+    mode: dark,
+    bg: #2e3440, fg: #d8dee9, muted: #4c566a,
+    accent: #88c0d0, accent-bright: #8fbcbb, accent-soft: #81a1c1,
+    green: #a3be8c, pink: #bf616a, border: #434c5e,
+  ),
+
+  // -- Monokai ------------------------------------------------------------
+  "monokai": (
+    mode: dark,
+    bg: #272822, fg: #f8f8f2, muted: #75715e,
+    accent: #fd971f, accent-bright: #e6db74, accent-soft: #f92672,
+    green: #a6e22e, pink: #f92672, border: #49483e,
+  ),
+
+  // -- One Dark (Atom) ----------------------------------------------------
+  "one-dark": (
+    mode: dark,
+    bg: #282c34, fg: #abb2bf, muted: #5c6370,
+    accent: #61afef, accent-bright: #56b6c2, accent-soft: #528bce,
+    green: #98c379, pink: #e06c75, border: #3e4451,
+  ),
+
+  // -- Catppuccin Mocha ---------------------------------------------------
+  "catppuccin-mocha": (
+    mode: dark,
+    bg: #1e1e2e, fg: #cdd6f4, muted: #6c7086,
+    accent: #cba6f7, accent-bright: #f5c2e7, accent-soft: #b4befe,
+    green: #a6e3a1, pink: #f38ba8, border: #313244,
+  ),
+
+  // -- Classic green phosphor (VT220-ish) ---------------------------------
+  "green-phosphor": (
+    mode: dark,
+    bg: #001100, fg: #33ff66, muted: #1f8a3f,
+    accent: #39ff14, accent-bright: #7dff5c, accent-soft: #2bd80f,
+    green: #39ff14, pink: #ff5555, border: #0a3a18,
+  ),
+
+  // -- Cyan on navy (the README example) ----------------------------------
+  "cyan-navy": (
+    mode: dark,
+    bg: #001014, fg: #c8d6d6, muted: #5f7a7a,
+    accent: #00e0ff, accent-bright: #5cf0ff, accent-soft: #00b8d4,
+    green: #00ff9c, pink: #ff6b6b, border: #0d3540,
+  ),
+);
+
+// Look up the active palette; fall back to "amber" if an unknown name is set.
+@function terminal-pick($name) {
+  @if map-has-key($terminal-palettes, $name) {
+    @return map-get($terminal-palettes, $name);
+  }
+  @warn "Unknown $terminal-palette '#{$name}'. Falling back to 'amber'. " +
+        "Available: #{map-keys($terminal-palettes)}.";
+  @return map-get($terminal-palettes, "amber");
+}
+
+
 /*-- scss:defaults --*/
 
 // ============================================================================
 //  TERMINAL THEME — customizable variables
 //  ---------------------------------------------------------------------------
-//  Every variable below uses `!default`, so you can override ANY color or font
-//  from your own SCSS file without editing this theme. In your document:
+//  Two ways to recolor the theme:
 //
-//      format:
-//        terminal-revealjs:
-//          theme:
-//            - custom.scss     # <-- your overrides (define vars WITHOUT !default)
+//  1) Pick a ready-made color scheme (like a modern terminal):
 //
-//  ...and `custom.scss` only needs the variables you want to change, e.g.:
+//        /*-- scss:defaults --*/
+//        $terminal-palette: "solarized-dark";
 //
-//      /*-- scss:defaults --*/
-//      $terminal-accent: #00e0ff;   // cyan instead of amber
-//      $terminal-bg:     #001014;
+//     Available: amber (default), solarized-dark, solarized-light,
+//     tomorrow-night-eighties, dracula, gruvbox-dark, gruvbox-light, nord,
+//     monokai, one-dark, catppuccin-mocha, green-phosphor, cyan-navy.
+//
+//  2) Override individual colors. Every variable below uses `!default`, so you
+//     can override ANY color or font — on its own, or on top of a palette:
+//
+//        /*-- scss:defaults --*/
+//        $terminal-palette: "dracula";   // start from Dracula...
+//        $terminal-accent:  #00e0ff;     // ...but make the accent cyan
+//
+//  Enable your overrides by listing your file AFTER the theme:
+//
+//        format:
+//          terminal-revealjs:
+//            theme:
+//              - custom.scss
 // ============================================================================
 
-// ---- Color palette ---------------------------------------------------------
-$terminal-bg:            #0a0a0a !default;  // slide background
-$terminal-fg:            #c8c8c8 !default;  // default body text
-$terminal-muted:         #6f6f6f !default;  // de-emphasized / secondary text
-$terminal-accent:        #f5a623 !default;  // primary amber (headings, prompts)
-$terminal-accent-bright: #ffb733 !default;  // brighter amber for big headings
-$terminal-accent-soft:   #e8911f !default;  // slightly darker amber
-$terminal-green:         #4ade80 !default;  // prompt ">" and status dot
-$terminal-pink:          #f87171 !default;  // strong/negative emphasis
-$terminal-border:        #3a3216 !default;  // box / card borders
-$terminal-box-bg:        rgba(245, 166, 35, 0.05) !default; // callout fill
+// ---- Pick a color scheme ---------------------------------------------------
+$terminal-palette: "amber" !default;       // name of a built-in palette
+$_terminal-pal: terminal-pick($terminal-palette);
+$terminal-mode:  map-get($_terminal-pal, mode) !default;  // "dark" | "light"
+
+// ---- Color palette (each derives from the selected scheme) -----------------
+$terminal-bg:            map-get($_terminal-pal, bg)            !default;  // slide background
+$terminal-fg:            map-get($_terminal-pal, fg)            !default;  // default body text
+$terminal-muted:         map-get($_terminal-pal, muted)         !default;  // de-emphasized / secondary text
+$terminal-accent:        map-get($_terminal-pal, accent)        !default;  // primary accent (headings, prompts)
+$terminal-accent-bright: map-get($_terminal-pal, accent-bright) !default;  // brighter accent for big headings
+$terminal-accent-soft:   map-get($_terminal-pal, accent-soft)   !default;  // slightly darker accent
+$terminal-green:         map-get($_terminal-pal, green)         !default;  // prompt ">" and status dot
+$terminal-pink:          map-get($_terminal-pal, pink)          !default;  // strong/negative emphasis
+$terminal-border:        map-get($_terminal-pal, border)        !default;  // box / card borders
+$terminal-box-bg:        rgba($terminal-accent, 0.06)           !default;  // callout fill
 
 // Map common reveal.js roles onto the palette (still overridable)
 $terminal-link:          $terminal-accent !default;
 $terminal-strong:        $terminal-accent-bright !default;  // **bold** color
 $terminal-em:            $terminal-accent !default;         // *italic* color
-$terminal-code-bg:       #111111 !default;
+// Code-block fill: nudge the background slightly for contrast. On dark schemes
+// we darken; on light schemes we darken only a touch so code still reads.
+$terminal-code-bg:       if($terminal-mode == dark, darken($terminal-bg, 3%), darken($terminal-bg, 4%)) !default;
 $terminal-code-fg:       $terminal-fg !default;
 
 // ---- Fonts -----------------------------------------------------------------
@@ -56,16 +211,23 @@ $terminal-heading-spacing: 0.02em !default;
 $terminal-content-top:    90px !default;   // gap below the top status bar
 $terminal-content-bottom: 70px !default;   // gap above the bottom footer
 
-// ---- Effects ---------------------------------------------------------------
-$terminal-glow:        true !default;   // amber glow on headings
-$terminal-scanlines:   true !default;   // subtle CRT scanline overlay
-$terminal-glow-color:  rgba(245, 166, 35, 0.45) !default;
+// ---- Effects (auto-toned to the palette's light/dark mode) -----------------
+// Glow looks great on dark schemes but muddy on light ones, and scanlines need
+// to be far subtler on a light background. These defaults adapt automatically;
+// override any of them to force a specific look.
+$terminal-glow:        ($terminal-mode == dark) !default;  // accent glow on headings
+$terminal-scanlines:   true !default;                      // CRT scanline overlay
+$terminal-glow-color:  rgba($terminal-accent, 0.45) !default;
+// Scanline tint + strength: dark schemes darken between lines; light schemes
+// need a much fainter overlay so text stays readable.
+$terminal-scanline-color:    if($terminal-mode == dark, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.05)) !default;
+$terminal-scanline-opacity:  if($terminal-mode == dark, 0.5, 0.35) !default;
 
 // ---- Wire palette into reveal.js / Quarto SCSS variables -------------------
 $body-bg:                       $terminal-bg !default;
 $body-color:                    $terminal-fg !default;
 $link-color:                    $terminal-link !default;
-$selection-bg:                  rgba(245, 166, 35, 0.35) !default;
+$selection-bg:                  rgba($terminal-accent, 0.35) !default;
 
 $font-family-sans-serif:        $terminal-body-font !default;
 $font-family-monospace:         $terminal-code-font !default;
@@ -113,7 +275,7 @@ $code-color:                    $terminal-accent !default;
     text-shadow:
       0 0 2px $terminal-glow-color,
       0 0 12px $terminal-glow-color,
-      0 0 28px rgba(245, 166, 35, 0.25);
+      0 0 28px rgba($terminal-accent, 0.25);
   }
 }
 
@@ -233,7 +395,7 @@ $code-color:                    $terminal-accent !default;
 .reveal .steps ol > li {
   counter-increment: term-step;
   border: 1px solid $terminal-border;
-  background: rgba(245, 166, 35, 0.03);
+  background: rgba($terminal-accent, 0.03);
   padding: 0.55em 0.9em 0.55em 3.2em;
   margin-bottom: 0.6em;
   border-radius: 3px;
@@ -262,7 +424,7 @@ $code-color:                    $terminal-accent !default;
   border: 1px solid $terminal-border;
   border-radius: 4px;
   padding: 1em 1.1em;
-  background: rgba(245, 166, 35, 0.03);
+  background: rgba($terminal-accent, 0.03);
 }
 .reveal .card .card-title,
 .reveal .card > :first-child {
@@ -313,7 +475,7 @@ $code-color:                    $terminal-accent !default;
   font-size: 0.62em;
   letter-spacing: 0.05em;
   color: $terminal-muted;
-  border-bottom: 1px solid rgba(245, 166, 35, 0.15);
+  border-bottom: 1px solid rgba($terminal-accent, 0.15);
   padding-bottom: 0.4em;
   z-index: 5;
 }
@@ -336,7 +498,7 @@ $code-color:                    $terminal-accent !default;
   font-family: $terminal-body-font;
   font-size: 0.55em;
   color: $terminal-muted;
-  border-top: 1px solid rgba(245, 166, 35, 0.12);
+  border-top: 1px solid rgba($terminal-accent, 0.12);
   padding-top: 0.5em;
   z-index: 5;
 }
@@ -372,9 +534,9 @@ $code-color:                    $terminal-accent !default;
       to bottom,
       rgba(0, 0, 0, 0) 0px,
       rgba(0, 0, 0, 0) 2px,
-      rgba(0, 0, 0, 0.18) 3px,
-      rgba(0, 0, 0, 0.18) 3px
+      $terminal-scanline-color 3px,
+      $terminal-scanline-color 3px
     );
-    opacity: 0.5;
+    opacity: $terminal-scanline-opacity;
   }
 }
