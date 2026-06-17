@@ -5,6 +5,9 @@ result
 /.quarto/
 *_files/
 template.html
+snowflake.log
 
 # misc
 /.opencode/
+/.luarc.json
+ai_garage_screenshots/

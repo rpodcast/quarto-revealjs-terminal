@@ -2,6 +2,8 @@ default.nix
 result
 snowflake.log
 example_screenshots/
+ai_garage_screenshots/
 ,opencode
 build_config.R
 .Rprofile
+guide.md
