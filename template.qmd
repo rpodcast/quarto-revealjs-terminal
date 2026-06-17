@@ -1,90 +1,168 @@
 ---
-title: "Quarto reveal.js terminal theme"
-subtitle: "A retro-terminal Quarto reveal.js theme"
+title: "Terminal"
+subtitle: "A retro-terminal theme for Quarto reveal.js"
 format: terminal-revealjs
 author: Eric Nantz
 date: last-modified
+terminal-path: "quarto-revealjs-terminal"
 ---
 
-## SKILLS. {.section-break terminal-path="masterclass/module-04" terminal-status="LESSON 4 / 11"}
+## WELCOME TO THE TERMINAL. {.section-break terminal-path="intro" terminal-status="00 / 09"}
 
-[// HERMES AGENT MASTERCLASS]{.kicker}
+[// QUARTO REVEALJS THEME]{.kicker}
 
-[Procedural memory you can author.]{.lede}
+[Slides that look like your favorite shell.]{.lede}
 
-[80+ skills ship in the box. By the end of this module, you'll have written one.]{.desc}
+[This deck is built with the theme itself — every slide you see is a working
+example you can copy. Press → to begin.]{.desc}
 
-## AN AI AGENT THAT LEARNS YOU. {terminal-path="part-01/overview" terminal-status="1.1"}
+## WHAT YOU GET. {terminal-path="intro/overview" terminal-status="1.1"}
 
-[Open source. Built by Nous Research. MIT licensed.]{.lede}
+[A complete look-and-feel, ready out of the box.]{.lede}
 
 ::: callouts
 
-- Runs in your terminal (CLI) or on your phone (gateway)
-- Works with any model — Claude, GPT, Grok, Kimi, local, whatever
-- Nous uses this same tool to generate training data for the **Hermes model family**
+- **Dark, monospace, pixel-glow headings** — the classic terminal aesthetic
+- A **top status bar** and a **bottom footer** with a live slide counter
+- **Progress dots**, a CRT **scanline** overlay, and an amber heading **glow**
+- Purpose-built **layouts** for callouts, steps, and cards
+- **13 color schemes** — and full SCSS control over everything else
 
 :::
 
-## THE BET: COMPOUNDING VALUE. {terminal-path="part-02/the-bet" terminal-status="2.1"}
+## THE BUILDING BLOCKS. {terminal-path="layouts/spans" terminal-status="2.1"}
 
-Most agents are [stateless]{.neg} — every session starts from zero.
-Hermes is **stateful by design**. Every session makes the next one better.
+Everything is plain Markdown plus a few helper spans:
+
+::: callouts
+
+- `[// LABEL]{.kicker}` — an uppercase kicker label
+- `[subtitle]{.lede}` — a larger subtitle line
+- `[supporting text]{.desc}` — a muted description line
+- `[broke]{.neg}` is red, `[works]{.ok}` is green
+
+:::
+
+So a build that was once [broken]{.neg} now [works]{.ok}.
+
+## STEP BY STEP. {terminal-path="layouts/steps" terminal-status="2.2"}
+
+[Wrap an ordered list in `::: steps` for numbered boxes.]{.lede}
 
 ::: steps
 
-1. You give it a task
-2. It captures a **trajectory** — tools used, decisions made
-3. It extracts a reusable **skill**
-4. Next time: faster, cleaner, smarter
+1. Install the theme with `quarto add rpodcast/quarto-revealjs-terminal`
+2. Set `format: terminal-revealjs` in your front matter
+3. Write Markdown — add helper spans where you want emphasis
+4. Render with `quarto render` and ship it
 
 :::
 
-## TWO FILES. {terminal-path="~/.hermes/memories/" terminal-status="CONFIG: memory:"}
+## SIDE BY SIDE. {terminal-path="layouts/cards" terminal-status="2.3"}
 
 ::: cards
 
 ::: card
-[MEMORY.MD]{.card-title}
-Agent's notes about projects, environment, decisions, lessons learned.
+[CALLOUTS]{.card-title}
+Turn any bullet list into bordered callout boxes by wrapping it in a
+`::: callouts` div.
 
-cap **2,200 chars** · ~800 tokens
-key: `memory_char_limit`
+Great for **key points** and takeaways.
 :::
 
 ::: card
-[USER.MD]{.card-title}
-Agent's model of who you are: role, preferences, communication style.
+[CARDS]{.card-title}
+Place several `::: card` divs inside `::: cards` for a clean two-column layout.
 
-cap **1,375 chars** · ~500 tokens
-key: `user_char_limit`
+Use `[Title]{.card-title}` — **not** a heading — for the card title.
 :::
 
 :::
 
-Plain text. **Editable. Auditable. Portable.**
+> Tip: never put a Markdown heading (`##`, `###`) inside a card — Quarto turns
+> it into a nested slide and breaks navigation.
 
-## PART 03. {.section-break terminal-path="part-03" terminal-status="SECTION 3 / 5"}
+## STATUS BAR & FOOTER. {terminal-path="chrome/status" terminal-status="ACTIVE" terminal-hint="set it per slide ↑"}
 
-[// FILE SYSTEM]{.kicker}
+[The chrome is driven by header attributes.]{.lede}
 
-[Where everything lives.]{.lede}
+Set these on any `##` slide header:
 
-[A section-break slide: vertically centered, oversized title. Use these as dividers between major parts of your talk.]{.desc}
+::: callouts
 
-## WHERE STUFF LIVES. {terminal-path="part-03/file-layout" terminal-status="3.3"}
+- `terminal-path` — the green `>` prompt path, top-left
+- `terminal-status` — the status label with a dot, top-right
+- `terminal-hint` — overrides the footer hint (see the bottom-right of *this*
+  slide)
 
-[Everything Hermes stores is in ~/.hermes/]{.lede}
+:::
+
+Document-level defaults live in the YAML front matter, so you only set what
+changes per slide.
+
+## CODE & FILE TREES. {terminal-path="content/code" terminal-status="3.1"}
+
+[Fenced code blocks render in a bordered terminal panel.]{.lede}
 
 ```text
-~/.hermes/
-├── config.yaml      # your settings — editable
-├── .env             # your secrets — editable
-├── memories/        # MEMORY.md + USER.md (Mod 5)
-├── sessions/        # every past conversation
-├── skills/          # installed skills (Mod 4)
-├── logs/            # agent.log + errors.log
-└── cron/            # scheduled jobs (Mod 8)
+~/.config/terminal-theme/
+├── _quarto.yml         # project settings
+├── custom.scss         # your overrides (palette, colors, fonts)
+├── slides.qmd          # this presentation
+└── _extensions/
+    └── terminal/       # the theme lives here
 ```
 
-→ You can `cat` or edit the top 3. Don't touch `sessions/` or `cron/` by hand.
+Inline `code` is highlighted too — set the accent with `$terminal-accent`.
+
+## PICK A COLOR SCHEME. {terminal-path="theme/palettes" terminal-status="3.2"}
+
+[Switch the whole deck like a modern terminal — one line.]{.lede}
+
+```scss
+/*-- scss:defaults --*/
+$terminal-palette: "solarized-dark";
+```
+
+::: cards
+
+::: card
+[DARK SCHEMES]{.card-title}
+`amber` · `solarized-dark` · `dracula` · `nord` · `gruvbox-dark` · `monokai` ·
+`one-dark` · `catppuccin-mocha` · `tomorrow-night-eighties` · `green-phosphor` ·
+`cyan-navy`
+:::
+
+::: card
+[LIGHT SCHEMES]{.card-title}
+`solarized-light` · `gruvbox-light`
+
+Light palettes automatically soften the glow and scanlines so text stays
+readable.
+:::
+
+:::
+
+## MAKE IT YOURS. {.section-break terminal-path="theme/customize" terminal-status="SECTION 4 / 4"}
+
+[// FULL SCSS CONTROL]{.kicker}
+
+[Start from a palette, then override anything.]{.lede}
+
+[`$terminal-accent`, `$terminal-bg`, `$terminal-heading-font`, `$terminal-glow`,
+`$terminal-scanlines` — every color, font, and effect is a variable.]{.desc}
+
+## START BUILDING. {terminal-path="quarto-revealjs-terminal" terminal-status="DONE" terminal-hint="that's all — go build"}
+
+[Three commands and you're presenting.]{.lede}
+
+::: steps
+
+1. `quarto use template rpodcast/quarto-revealjs-terminal`
+2. Edit the generated `.qmd` — this file is your reference
+3. `quarto render` → open the HTML → present
+
+:::
+
+Questions, issues, and contributions are **welcome** on
+[GitHub](https://github.com/rpodcast/quarto-revealjs-terminal).
