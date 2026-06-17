@@ -1,11 +1,9 @@
 ---
-title: "TERMINAL THEME"
+title: "Quarto reveal.js terminal theme"
 subtitle: "A retro-terminal Quarto reveal.js theme"
-format:
-  terminal-revealjs:
-    # terminal-hint defaults to "press → to continue" (set by the format);
-    # override any terminal-* option here. Below we just set a default path.
-    terminal-path: "demo/terminal-theme"
+format: terminal-revealjs
+author: Eric Nantz
+date: last-modified
 ---
 
 ## SKILLS. {.section-break terminal-path="masterclass/module-04" terminal-status="LESSON 4 / 11"}
