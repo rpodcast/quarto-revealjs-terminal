@@ -6,8 +6,10 @@ result
 *_files/
 template.html
 snowflake.log
+public/*
 
 # misc
 /.opencode/
 /.luarc.json
 ai_garage_screenshots/
+**/*.quarto_ipynb
