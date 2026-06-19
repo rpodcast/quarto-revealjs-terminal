@@ -1,6 +1,8 @@
 # Terminal — a Quarto reveal.js slide theme
 
-A retro **computer-terminal** theme for [Quarto Revealjs](https://quarto.org/docs/presentations/revealjs/) presentations: dark background, amber pixel-glow headings, monospace body text, bordered terminal callout boxes, a top status bar, and a bottom footer with a slide counter, progress dots, and a `press → to continue` hint.
+A retro **computer-terminal** theme for [Quarto Revealjs](https://quarto.org/docs/presentations/revealjs/) presentations.
+
+[![Screenshot of a slide from the Quarto RevealJS Terminal theme using the cyan-navy palette](.github/terminal-theme-screenshot.png)](https://rpodcast.github.io/quarto-revealjs-terminal/template.html)
 
 All colors, fonts, and effects are **fully customizable** via SCSS variables —
 including ready-made color schemes (e.g. `solarized-dark`, `dracula`,
