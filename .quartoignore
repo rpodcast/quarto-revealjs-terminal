@@ -7,3 +7,5 @@ ai_garage_screenshots/
 build_config.R
 .Rprofile
 guide.md
+_quarto.yml
+public/
