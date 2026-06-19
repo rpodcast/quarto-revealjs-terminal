@@ -68,40 +68,5 @@
     "title": "Terminal",
     "section": "START BUILDING.",
     "text": "START BUILDING.\nThree commands and you’re presenting.\n\n\nquarto use template rpodcast/quarto-revealjs-terminal\nEdit the generated .qmd — this file is your reference\nquarto render → open the HTML → present\n\n\nQuestions, issues, and contributions are welcome on GitHub.\n\n\n\n&gt;quarto-revealjs-terminal●DONE\n\n\n10 / 10that's all — go build"
-  },
-  {
-    "objectID": "guide.html",
-    "href": "guide.html",
-    "title": "",
-    "section": "",
-    "text": "See template.qmd for working examples of each layout:\n\n\n\n\n\n\n\nLayout\nHow\n\n\n\n\nContent title slide\n## TITLE. + [// KICKER]{.kicker} + [lede]{.lede}\n\n\nSection-break / divider\n## TITLE. {.section-break} + .kicker / .lede / .desc (vertically centered, oversized title)\n\n\nBullets as callout boxes\nwrap a list in ::: callouts\n\n\nNumbered step boxes (01 02 …)\nwrap an ordered list in ::: steps\n\n\nTwo bordered cards\n::: cards containing ::: card divs (title via [Title]{.card-title})\n\n\nCode / file-tree block\na fenced ```text code block\n\n\n\nHelper spans: […]{.kicker} (uppercase label), […]{.lede} (subtitle), […]{.desc} (muted supporting line), […]{.neg} / […]{.ok} (red / green emphasis).\n\n\nSet attributes on the slide’s ## header:\n## SKILLS. {terminal-path=\"masterclass/module-04\" terminal-status=\"LESSON 4 / 11\"}\n\nterminal-path — left side of the top bar (after the green &gt; prompt)\nterminal-status — right side of the top bar (with a status dot)\nterminal-hint — overrides the footer hint for that slide\n\nDocument-level defaults are first-class options of the format, declared in the extension with sensible built-in defaults. Override any of them under terminal-revealjs: in the YAML front matter (you only need to set what you want to change):\n---\ntitle: \"My Talk\"\nformat:\n  terminal-revealjs:\n    terminal-path: \"part-01/overview\"   # default prompt path  (default: \"\")\n    terminal-hint: \"press → to continue\" # footer hint (this IS the default)\n    terminal-statusbar: true            # show the top status bar (default: true)\n    terminal-footer: true               # show the bottom footer  (default: true)\n    terminal-dots: true                 # show progress dots      (default: true)\n---\nPer-slide header attributes (shown above) override these defaults for that slide."
-  },
-  {
-    "objectID": "guide.html#slide-layouts",
-    "href": "guide.html#slide-layouts",
-    "title": "",
-    "section": "",
-    "text": "See template.qmd for working examples of each layout:\n\n\n\n\n\n\n\nLayout\nHow\n\n\n\n\nContent title slide\n## TITLE. + [// KICKER]{.kicker} + [lede]{.lede}\n\n\nSection-break / divider\n## TITLE. {.section-break} + .kicker / .lede / .desc (vertically centered, oversized title)\n\n\nBullets as callout boxes\nwrap a list in ::: callouts\n\n\nNumbered step boxes (01 02 …)\nwrap an ordered list in ::: steps\n\n\nTwo bordered cards\n::: cards containing ::: card divs (title via [Title]{.card-title})\n\n\nCode / file-tree block\na fenced ```text code block\n\n\n\nHelper spans: […]{.kicker} (uppercase label), […]{.lede} (subtitle), […]{.desc} (muted supporting line), […]{.neg} / […]{.ok} (red / green emphasis).\n\n\nSet attributes on the slide’s ## header:\n## SKILLS. {terminal-path=\"masterclass/module-04\" terminal-status=\"LESSON 4 / 11\"}\n\nterminal-path — left side of the top bar (after the green &gt; prompt)\nterminal-status — right side of the top bar (with a status dot)\nterminal-hint — overrides the footer hint for that slide\n\nDocument-level defaults are first-class options of the format, declared in the extension with sensible built-in defaults. Override any of them under terminal-revealjs: in the YAML front matter (you only need to set what you want to change):\n---\ntitle: \"My Talk\"\nformat:\n  terminal-revealjs:\n    terminal-path: \"part-01/overview\"   # default prompt path  (default: \"\")\n    terminal-hint: \"press → to continue\" # footer hint (this IS the default)\n    terminal-statusbar: true            # show the top status bar (default: true)\n    terminal-footer: true               # show the bottom footer  (default: true)\n    terminal-dots: true                 # show progress dots      (default: true)\n---\nPer-slide header attributes (shown above) override these defaults for that slide."
-  },
-  {
-    "objectID": "guide.html#color-palettes-terminal-color-schemes",
-    "href": "guide.html#color-palettes-terminal-color-schemes",
-    "title": "",
-    "section": "Color palettes (terminal color schemes)",
-    "text": "Color palettes (terminal color schemes)\nJust like a modern terminal emulator, you can switch the whole deck to a ready-made color scheme with a single variable. Create a custom.scss, list it after the theme, and set $terminal-palette:\nformat:\n  terminal-revealjs:\n    theme:\n      - custom.scss\n/*-- scss:defaults --*/\n$terminal-palette: \"solarized-dark\";\nAvailable palettes:\n\n\n\nPalette\nMode\n\n\n\n\namber (default)\ndark\n\n\nsolarized-dark\ndark\n\n\nsolarized-light\nlight\n\n\ntomorrow-night-eighties\ndark\n\n\ndracula\ndark\n\n\ngruvbox-dark\ndark\n\n\ngruvbox-light\nlight\n\n\nnord\ndark\n\n\nmonokai\ndark\n\n\none-dark\ndark\n\n\ncatppuccin-mocha\ndark\n\n\ngreen-phosphor\ndark\n\n\ncyan-navy\ndark\n\n\n\nLight palettes automatically soften the CRT glow and scanlines so they remain readable on a light background. If you set an unknown name, the theme falls back to amber (with a build-time warning).\nYou can also start from a palette and override individual colors on top of it:\n/*-- scss:defaults --*/\n$terminal-palette: \"dracula\";   // start from Dracula...\n$terminal-accent:  #00e0ff;     // ...but make the accent cyan"
-  },
-  {
-    "objectID": "guide.html#customizing-colors-fonts",
-    "href": "guide.html#customizing-colors-fonts",
-    "title": "",
-    "section": "Customizing colors & fonts",
-    "text": "Customizing colors & fonts\nEvery color and font is a !default SCSS variable, so you only override what you want. Create a custom.scss (see the included example) and list it after the theme:\nformat:\n  terminal-revealjs:\n    theme:\n      - custom.scss\n/*-- scss:defaults --*/\n$terminal-accent:        #00e0ff;   // cyan instead of amber\n$terminal-bg:            #001014;\n$terminal-heading-font:  \"Press Start 2P\", monospace;\n$terminal-glow:          false;     // disable heading glow\n$terminal-scanlines:     false;     // disable CRT scanlines\nKey variables: $terminal-palette (pick a scheme), $terminal-bg, $terminal-fg, $terminal-muted, $terminal-accent, $terminal-accent-bright, $terminal-green, $terminal-pink, $terminal-border, $terminal-body-font, $terminal-heading-font, $terminal-glow, $terminal-scanlines. The full, documented list (and the palette registry) is at the top of _extensions/terminal/terminal.scss."
-  },
-  {
-    "objectID": "guide.html#project-structure",
-    "href": "guide.html#project-structure",
-    "title": "",
-    "section": "Project structure",
-    "text": "Project structure\n_extensions/terminal/\n├── _extension.yml     # defines the terminal-revealjs format + fonts\n├── terminal.scss      # theme variables (!default) + rules\n└── terminal.lua       # injects status bar + footer/progress dots\ntemplate.qmd           # demo deck covering every layout\ncustom.scss            # example override file"
   }
 ]
