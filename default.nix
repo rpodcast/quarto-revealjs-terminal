@@ -15,7 +15,29 @@
 # Report any issues to https://github.com/ropensci/rix
 let
  pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/2026-03-09.tar.gz") {};
- 
+
+  # Newer nixpkgs pin, used only to pull a Quarto CLI that includes the fix for
+  # https://github.com/quarto-dev/quarto-cli/issues/14509 (a resolveGlobs race
+  # condition on `.quarto/quarto-session-temp*` that crashes Positron previews).
+  # This revision ships quarto 1.10.18; keep the rstats-on-nix pin above for R.
+  pkgs-quarto = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/a831408e6378bc02ebf8cc09b52c96ca86f6bab4.tar.gz") {};
+
+  # Nixpkgs builds Quarto against pandoc 3.7.x, but Quarto >= 1.9 emits the
+  # `--syntax-highlighting` pandoc option that only exists in pandoc >= 3.8,
+  # causing renders to fail with:
+  #   Aeson exception: Error in $: Unknown option "syntax-highlighting"
+  # Rename the option back to `highlight-style` inside the bundled quarto.js
+  # per the workaround in https://github.com/NixOS/nixpkgs/issues/519484.
+  # This whole patch becomes a no-op (and should be dropped) once nixpkgs
+  # ships pandoc >= 3.8 -- `--replace-fail` will error if the string
+  # disappears, which serves as a canary.
+  quarto-patched = pkgs-quarto.quarto.overrideAttrs (old: {
+    postFixup = (old.postFixup or "") + ''
+      substituteInPlace $out/bin/quarto.js \
+        --replace-fail 'kSyntaxHighlighting = "syntax-highlighting"' 'kSyntaxHighlighting = "highlight-style"'
+    '';
+  });
+
   rpkgs = builtins.attrValues {
     inherit (pkgs.rPackages) 
       dplyr
@@ -28,11 +50,10 @@ let
     inherit (pkgs) 
       glibcLocales
       nix
-      quarto
       R
       which
       pandoc;
-  };
+  } ++ [ quarto-patched ];
   
   shell = pkgs.mkShell {
     LOCALE_ARCHIVE = if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then "${pkgs.glibcLocales}/lib/locale/locale-archive" else "";
@@ -43,7 +64,10 @@ let
     LC_PAPER = "en_US.UTF-8";
     LC_MEASUREMENT = "en_US.UTF-8";
     
-    buildInputs = [ rpkgs system_packages ];
+    # `system_packages` is listed before `rpkgs` so that our explicit
+    # `pkgs-quarto.quarto` (1.10.18) wins on PATH over the older quarto CLI
+    # that the R `quarto` package pulls in as a runtime dependency.
+    buildInputs = [ system_packages rpkgs ];
     
   }; 
 in
