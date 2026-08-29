@@ -1,7 +1,10 @@
 ---
 title: "Terminal"
 subtitle: "A retro-terminal theme for Quarto reveal.js"
-format: terminal-revealjs
+format: 
+  terminal-revealjs:
+    theme:
+      - custom.scss
 author: Eric Nantz
 date: last-modified
 terminal-path: "quarto-revealjs-terminal"
