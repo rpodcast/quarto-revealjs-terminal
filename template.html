@@ -6,11 +6,11 @@
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7254980e6d35ae156d877b48cddee30a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.26">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Eric Nantz">
-  <meta name="dcterms.date" content="2026-06-19">
+  <meta name="dcterms.date" content="2026-08-29">
   <title>Terminal</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,10 +18,16 @@
   <link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
   <style>
-    code{white-space: pre-wrap;}
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -29,8 +35,74 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-51e26d565c3f8fea6feb4cc7fe2930b4.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-1640d929651b3d43fbcc087f54cbed58.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -137,12 +209,12 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Eric Nantz 
+Eric Nantz
 </div>
 </div>
 </div>
 
-  <p class="date">2026-06-19</p>
+  <p class="date">2026-08-29</p>
 </section>
 <section id="welcome-to-the-terminal." class="slide level2 section-break" data-terminal-path="intro" data-terminal-status="00 / 09">
 <h2>WELCOME TO THE TERMINAL.</h2>
@@ -256,12 +328,12 @@ Eric Nantz
 <section id="code-file-trees." class="slide level2" data-terminal-path="content/code" data-terminal-status="3.1">
 <h2>CODE &amp; FILE TREES.</h2>
 <p><span class="lede">Fenced code blocks render in a bordered terminal panel.</span></p>
-<pre class="text number-lines"><code>~/.config/terminal-theme/
-├── _quarto.yml         # project settings
-├── custom.scss         # your overrides (palette, colors, fonts)
-├── slides.qmd          # this presentation
-└── _extensions/
-    └── terminal/       # the theme lives here</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a aria-label="1"></a>~/.config/terminal-theme/</span>
+<span id="cb1-2"><a aria-label="2"></a>├── _quarto.yml         # project settings</span>
+<span id="cb1-3"><a aria-label="3"></a>├── custom.scss         # your overrides (palette, colors, fonts)</span>
+<span id="cb1-4"><a aria-label="4"></a>├── slides.qmd          # this presentation</span>
+<span id="cb1-5"><a aria-label="5"></a>└── _extensions/</span>
+<span id="cb1-6"><a aria-label="6"></a>    └── terminal/       # the theme lives here</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Inline <code>code</code> is highlighted too — set the accent with <code>$terminal-accent</code>.</p>
 <div class="terminal-statusbar">
 <span class="ts-path"><span class="ts-prompt">&gt;</span>content/code</span><span class="ts-status"><span class="ts-dot">●</span>3.1</span>
@@ -273,8 +345,8 @@ Eric Nantz
 <section id="pick-a-color-scheme." class="slide level2" data-terminal-path="theme/palettes" data-terminal-status="3.2">
 <h2>PICK A COLOR SCHEME.</h2>
 <p><span class="lede">Switch the whole deck like a modern terminal — one line.</span></p>
-<pre class="scss number-lines"><code>/*-- scss:defaults --*/
-$terminal-palette: "solarized-dark";</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource scss number-lines code-with-copy"><code class="sourceCode scss"><span id="cb2-1"><a aria-label="1"></a><span class="co">/*-- scss:defaults --*/</span></span>
+<span id="cb2-2"><a aria-label="2"></a><span class="va">$terminal-palette</span>: <span class="st">"solarized-dark"</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cards">
 <div class="card">
 <p><span class="card-title">DARK SCHEMES</span> <code>amber</code> · <code>solarized-dark</code> · <code>dracula</code> · <code>nord</code> · <code>gruvbox-dark</code> · <code>monokai</code> · <code>one-dark</code> · <code>catppuccin-mocha</code> · <code>tomorrow-night-eighties</code> · <code>green-phosphor</code> · <code>cyan-navy</code></p>
