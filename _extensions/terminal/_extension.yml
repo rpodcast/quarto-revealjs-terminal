@@ -19,7 +19,6 @@ contributes:
       width: 1280
       height: 720
       margin: 0.04
-      highlight-style: none      # code colouring handled by the theme
       # ---- Terminal theme options (read by terminal.lua) -------------------
       # These are first-class defaults of the format. Override any of them in
       # your document's `format: terminal-revealjs:` block, or per-slide via
