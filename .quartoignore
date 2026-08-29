@@ -3,7 +3,7 @@ result
 snowflake.log
 example_screenshots/
 ai_garage_screenshots/
-,opencode
+.opencode
 build_config.R
 .Rprofile
 guide.md
